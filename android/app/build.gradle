@@ -67,6 +67,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

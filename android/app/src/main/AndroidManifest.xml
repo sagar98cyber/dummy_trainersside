@@ -9,6 +9,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="phone_authentication"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8035217795075290~7369554090"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -24,6 +27,7 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
                  screen fades out. A splash screen is useful to avoid any visual

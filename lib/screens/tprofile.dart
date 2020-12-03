@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:phone_authentication/components/admobservices.dart';
+
 import '../res.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -19,13 +21,17 @@ class trainerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: Container(
-              child: Column(
-                children: [
-                  Text('${Res.tname}'),
-                  Text('${Res.tid}'),
-                  Text('${Res.tNumber}'),
-                ],
+            body: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    Text('${Res.tname}'),
+                    Text('${Res.tid}'),
+                    Text('${Res.tNumber}'),
+                      admobServices(),
+
+                  ],
+                ),
               ),
             ),
         )
