@@ -1,11 +1,42 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 const String testDevice = 'YOUR_DEVICE_ID';
-
+class AdMobService{
+  String getAdMobAppId(){
+    if(Platform.isIOS){
+      return 'ca-app-pub-8035217795075290~5963907426';
+    }
+    else if(Platform.isAndroid){
+      return 'ca-app-pub-8035217795075290~7369554090';
+    }
+    else{
+      return null;
+    }
+  }
+  String getInterStitialAd(){
+    if(Platform.isIOS){
+      return 'ca-app-pub-8035217795075290/1610741209';
+    }
+    else if(Platform.isAndroid){
+      return 'ca-app-pub-8035217795075290/4866146854';
+    }
+    else{
+      return null;
+    }
+  }
+  InterstitialAd getNewTripInterstitial(){
+    return InterstitialAd(
+      adUnitId: getInterStitialAd(),
+      listener: (MobileAdEvent event){
+        print('InterstitialAd event is $event');
+      }
+    );
+  }
+}
+/*
 class admobServices extends StatefulWidget {
   @override
   _admobServicesState createState() => _admobServicesState();
@@ -82,4 +113,4 @@ class _admobServicesState extends State<admobServices> {
       ]
     );
   }
-}
+}*/

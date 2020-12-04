@@ -5,14 +5,20 @@ import 'package:flutter/services.dart';
 import 'package:phone_authentication/screens/tentryroom.dart';
 import 'package:phone_authentication/utility/firebase/trainer.dart';
 import 'screens/loginWithPhone.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import './screens/tabbar.dart';
 import 'res.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'components/admobservices.dart';
 import 'package:firebase_core/firebase_core.dart';
 bool USE_FIRESTORE_EMULATOR = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+
+ // FirebaseAdMob.instance.initialize(appId: AdMobService().getAdMobAppId());
+
   await Firebase.initializeApp();
   runApp(
         MyApp()
@@ -32,7 +38,8 @@ class _MyAppState extends State<MyApp> {
         home:
         //LoginWithPhone(),
         dtabarstore(mobile: '+911234567890',),
-     // tlogin(),
+      //tlogin(),
+
       theme: ThemeData(primaryColor:  Color(0xff600094),),
     );
   }
