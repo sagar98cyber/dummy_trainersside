@@ -7,10 +7,10 @@ const String testDevice = 'YOUR_DEVICE_ID';
 class AdMobService{
   String getAdMobAppId(){
     if(Platform.isIOS){
-      return 'ca-app-pub-8035217795075290/1610741209';
+      return 'ca-app-pub-8035217795075290~5963907426';
     }
     else if(Platform.isAndroid){
-      return 'ca-app-pub-8035217795075290/4866146854';
+      return 'ca-app-pub-8035217795075290~7369554090';
     }
     else{
       return null;

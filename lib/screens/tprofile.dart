@@ -40,7 +40,7 @@ class trainerProfile extends StatelessWidget {
                       horizontalCenterOffset: 0.0,
                     );
                   },
-                  child: null)
+                  child: Text('asds'))
             ],
           ),
         ),
