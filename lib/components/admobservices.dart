@@ -25,16 +25,6 @@ class _admobServicesState extends State<admobServices> {
   InterstitialAd _interstitialAd;
   int _coins = 0;
 
-  BannerAd createBannerAd() {
-    return BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
-    );
-  }
 
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
@@ -46,23 +36,14 @@ class _admobServicesState extends State<admobServices> {
     );
   }
 
-  NativeAd createNativeAd() {
-    return NativeAd(
-      adUnitId: NativeAd.testAdUnitId,
-      factoryId: 'adFactoryExample',
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("$NativeAd event $event");
-      },
-    );
-  }
+
 
   @override
   void initState() {
     super.initState();
     FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-    _bannerAd = createBannerAd()..load();
-    RewardedVideoAd.instance.listener =
+   // _bannerAd = createBannerAd()..load();
+  /*  RewardedVideoAd.instance.listener =
         (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
       print("RewardedVideoAd event $event");
       if (event == RewardedVideoAdEvent.rewarded) {
@@ -70,7 +51,7 @@ class _admobServicesState extends State<admobServices> {
           _coins += rewardAmount;
         });
       }
-    };
+    };*/
   }
 
   @override
@@ -89,28 +70,6 @@ class _admobServicesState extends State<admobServices> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           RaisedButton(
-              child: const Text('SHOW BANNER'),
-              onPressed: () {
-                _bannerAd ??= createBannerAd();
-                _bannerAd
-                  ..load()
-                  ..show();
-              }),
-          RaisedButton(
-              child: const Text('SHOW BANNER WITH OFFSET'),
-              onPressed: () {
-                _bannerAd ??= createBannerAd();
-                _bannerAd
-                  ..load()
-                  ..show(horizontalCenterOffset: -50, anchorOffset: 100);
-              }),
-          RaisedButton(
-              child: const Text('REMOVE BANNER'),
-              onPressed: () {
-                _bannerAd?.dispose();
-                _bannerAd = null;
-              }),
-          RaisedButton(
             child: const Text('LOAD INTERSTITIAL'),
             onPressed: () {
               _interstitialAd?.dispose();
@@ -123,47 +82,7 @@ class _admobServicesState extends State<admobServices> {
               _interstitialAd?.show();
             },
           ),
-          RaisedButton(
-            child: const Text('SHOW NATIVE'),
-            onPressed: () {
-              _nativeAd ??= createNativeAd();
-              _nativeAd
-                ..load()
-                ..show(
-                  anchorType: Platform.isAndroid
-                      ? AnchorType.bottom
-                      : AnchorType.top,
-                );
-            },
-          ),
-          RaisedButton(
-            child: const Text('REMOVE NATIVE'),
-            onPressed: () {
-              _nativeAd?.dispose();
-              _nativeAd = null;
-            },
-          ),
-          RaisedButton(
-            child: const Text('LOAD REWARDED VIDEO'),
-            onPressed: () {
-              RewardedVideoAd.instance.load(
-                  adUnitId: RewardedVideoAd.testAdUnitId,
-                  targetingInfo: targetingInfo);
-            },
-          ),
-          RaisedButton(
-            child: const Text('SHOW REWARDED VIDEO'),
-            onPressed: () {
-              RewardedVideoAd.instance.show();
-            },
-          ),
-          Text("You have $_coins coins."),
-        ].map((Widget button) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: button,
-          );
-        }).toList(),
+        ]
       ),
     //),
     );
