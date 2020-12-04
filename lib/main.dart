@@ -10,14 +10,18 @@ import './screens/tabbar.dart';
 import 'res.dart';
 import 'components/admobservices.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 bool USE_FIRESTORE_EMULATOR = false;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+  // FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+  FirebaseAdMob.instance.initialize(
+      appId:
+          //FirebaseAdMob.testAppId
+          'ca-app-pub-8035217795075290~7369554090');
   await Firebase.initializeApp();
-  runApp(
-        MyApp()
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -29,12 +33,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home:
-        //LoginWithPhone(),
-        dtabarstore(mobile: '+911234567890',),
+      debugShowCheckedModeBanner: false,
+      home:
+          //LoginWithPhone(),
+          dtabarstore(
+        mobile: '+911234567890',
+      ),
       //tlogin(),
-      theme: ThemeData(primaryColor:  Color(0xff600094),),
+      theme: ThemeData(
+        primaryColor: Color(0xff600094),
+      ),
     );
   }
 }
