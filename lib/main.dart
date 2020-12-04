@@ -6,13 +6,11 @@ import 'package:phone_authentication/screens/tentryroom.dart';
 import 'package:phone_authentication/utility/firebase/trainer.dart';
 import 'screens/loginWithPhone.dart';
 import './screens/tabbar.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'res.dart';
 import 'package:firebase_core/firebase_core.dart';
 bool USE_FIRESTORE_EMULATOR = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-8035217795075290~7369554090');
   await Firebase.initializeApp();
   runApp(
         MyApp()
@@ -31,8 +29,8 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home:
         //LoginWithPhone(),
-        dtabarstore(mobile: '+911234567890',),
-     // tlogin(),
+       // dtabarstore(mobile: '+911234567890',),
+      tlogin(),
       theme: ThemeData(primaryColor:  Color(0xff600094),),
     );
   }
