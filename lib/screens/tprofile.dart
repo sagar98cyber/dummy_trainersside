@@ -16,12 +16,12 @@ class tprofile extends StatelessWidget {
 }
 
 class trainerProfile extends StatelessWidget {
-  final ams = AdMobService();
+  //final ams = AdMobService();
 
   @override
   Widget build(BuildContext context) {
-    InterstitialAd newIad = ams.getNewTripInterstitial();
-    newIad.load();
+    //InterstitialAd newIad = ams.getNewTripInterstitial();
+    //newIad.load();
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -31,16 +31,8 @@ class trainerProfile extends StatelessWidget {
               Text('${Res.tname}'),
               Text('${Res.tid}'),
               Text('${Res.tNumber}'),
-              // admobServices(),
-              FlatButton(
-                  onPressed: () async {
-                    newIad.show(
-                      anchorType: AnchorType.bottom,
-                      anchorOffset: 0.0,
-                      horizontalCenterOffset: 0.0,
-                    );
-                  },
-                  child: Text('asds'))
+             admobServices(),
+
             ],
           ),
         ),

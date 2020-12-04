@@ -4,45 +4,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 const String testDevice = 'YOUR_DEVICE_ID';
-class AdMobService{
-  String getAdMobAppId(){
-    if(Platform.isIOS){
-      return 'ca-app-pub-8035217795075290~5963907426';
-    }
-    else if(Platform.isAndroid){
-      return 'ca-app-pub-8035217795075290~7369554090';
-    }
-    else{
-      return null;
-    }
-  }
-  String getInterStitialAd(){
-    if(Platform.isIOS){
-      return 'ca-app-pub-8035217795075290/1610741209';
-    }
-    else if(Platform.isAndroid){
-      return 'ca-app-pub-8035217795075290/4866146854';
-    }
-    else{
-      return null;
-    }
-  }
-  InterstitialAd getNewTripInterstitial(){
-    return InterstitialAd(
-      adUnitId: getInterStitialAd(),
-      listener: (MobileAdEvent event){
-        print('InterstitialAd event is $event');
-      }
-    );
-  }
-}
-/*
+
+
 class admobServices extends StatefulWidget {
   @override
   _admobServicesState createState() => _admobServicesState();
 }
 
 class _admobServicesState extends State<admobServices> {
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: testDevice != null ? <String>[testDevice] : null,
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    childDirected: true,
+    nonPersonalizedAds: true,
+  );
+
   BannerAd _bannerAd;
   NativeAd _nativeAd;
   InterstitialAd _interstitialAd;
@@ -59,35 +36,16 @@ class _admobServicesState extends State<admobServices> {
     );
   }
 
-  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    testDevices: testDevice != null ? <String>[testDevice] : null,
-    keywords: <String>['foo', 'bar'],
-    contentUrl: 'http://foo.com/bar.html',
-    childDirected: true,
-    nonPersonalizedAds: true,
-  );
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+      adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event $event");
+      },
+    );
+  }
 
-  /*MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    keywords: <String>['flutterio', 'beautiful apps'],
-    contentUrl: 'https://flutter.io',
-    birthday: DateTime.now(),
-    childDirected: false,
-    designedForFamilies: false,
-    gender: MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
-    testDevices: <String>[], // Android emulators are considered test devices
-  );*/
-
-  BannerAd myBanner = BannerAd(
-    // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    // https://developers.google.com/admob/android/test-ads
-    // https://developers.google.com/admob/ios/test-ads
-    adUnitId: BannerAd.testAdUnitId,
-    size: AdSize.smartBanner,
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {
-      print("BannerAd event is $event");
-    },
-  );
   NativeAd createNativeAd() {
     return NativeAd(
       adUnitId: NativeAd.testAdUnitId,
@@ -98,25 +56,6 @@ class _admobServicesState extends State<admobServices> {
       },
     );
   }
-  InterstitialAd createInterstitialAd() {
-    return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("InterstitialAd event $event");
-      },
-    );
-  }
-  InterstitialAd myInterstitial = InterstitialAd(
-    // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    // https://developers.google.com/admob/android/test-ads
-    // https://developers.google.com/admob/ios/test-ads
-    adUnitId: InterstitialAd.testAdUnitId,
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {
-      print("InterstitialAd event is $event");
-    },
-  );
 
   @override
   void initState() {
@@ -144,86 +83,89 @@ class _admobServicesState extends State<admobServices> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        RaisedButton(
-            child: const Text('SHOW BANNER'),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          RaisedButton(
+              child: const Text('SHOW BANNER'),
+              onPressed: () {
+                _bannerAd ??= createBannerAd();
+                _bannerAd
+                  ..load()
+                  ..show();
+              }),
+          RaisedButton(
+              child: const Text('SHOW BANNER WITH OFFSET'),
+              onPressed: () {
+                _bannerAd ??= createBannerAd();
+                _bannerAd
+                  ..load()
+                  ..show(horizontalCenterOffset: -50, anchorOffset: 100);
+              }),
+          RaisedButton(
+              child: const Text('REMOVE BANNER'),
+              onPressed: () {
+                _bannerAd?.dispose();
+                _bannerAd = null;
+              }),
+          RaisedButton(
+            child: const Text('LOAD INTERSTITIAL'),
             onPressed: () {
-              _bannerAd ??= createBannerAd();
-              _bannerAd
+              _interstitialAd?.dispose();
+              _interstitialAd = createInterstitialAd()..load();
+            },
+          ),
+          RaisedButton(
+            child: const Text('SHOW INTERSTITIAL'),
+            onPressed: () {
+              _interstitialAd?.show();
+            },
+          ),
+          RaisedButton(
+            child: const Text('SHOW NATIVE'),
+            onPressed: () {
+              _nativeAd ??= createNativeAd();
+              _nativeAd
                 ..load()
-                ..show();
-            }),
-        RaisedButton(
-            child: const Text('SHOW BANNER WITH OFFSET'),
+                ..show(
+                  anchorType: Platform.isAndroid
+                      ? AnchorType.bottom
+                      : AnchorType.top,
+                );
+            },
+          ),
+          RaisedButton(
+            child: const Text('REMOVE NATIVE'),
             onPressed: () {
-              _bannerAd ??= createBannerAd();
-              _bannerAd
-                ..load()
-                ..show(horizontalCenterOffset: -50, anchorOffset: 100);
-            }),
-        RaisedButton(
-            child: const Text('REMOVE BANNER'),
+              _nativeAd?.dispose();
+              _nativeAd = null;
+            },
+          ),
+          RaisedButton(
+            child: const Text('LOAD REWARDED VIDEO'),
             onPressed: () {
-              _bannerAd?.dispose();
-              _bannerAd = null;
-            }),
-        RaisedButton(
-          child: const Text('LOAD INTERSTITIAL'),
-          onPressed: () {
-            _interstitialAd?.dispose();
-            _interstitialAd = createInterstitialAd()..load();
-          },
-        ),
-        RaisedButton(
-          child: const Text('SHOW INTERSTITIAL'),
-          onPressed: () {
-            _interstitialAd?.show();
-          },
-        ),
-        RaisedButton(
-          child: const Text('SHOW NATIVE'),
-          onPressed: () {
-            _nativeAd ??= createNativeAd();
-            _nativeAd
-              ..load()
-              ..show(
-                anchorType: Platform.isAndroid
-                    ? AnchorType.bottom
-                    : AnchorType.top,
-              );
-          },
-        ),
-        RaisedButton(
-          child: const Text('REMOVE NATIVE'),
-          onPressed: () {
-            _nativeAd?.dispose();
-            _nativeAd = null;
-          },
-        ),
-        RaisedButton(
-          child: const Text('LOAD REWARDED VIDEO'),
-          onPressed: () {
-            RewardedVideoAd.instance.load(
-                adUnitId: RewardedVideoAd.testAdUnitId,
-                targetingInfo: targetingInfo);
-          },
-        ),
-        RaisedButton(
-          child: const Text('SHOW REWARDED VIDEO'),
-          onPressed: () {
-            RewardedVideoAd.instance.show();
-          },
-        ),
-        Text("You have $_coins coins."),
-      ].map((Widget button) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: button,
-        );
-      }).toList(),
+              RewardedVideoAd.instance.load(
+                  adUnitId: RewardedVideoAd.testAdUnitId,
+                  targetingInfo: targetingInfo);
+            },
+          ),
+          RaisedButton(
+            child: const Text('SHOW REWARDED VIDEO'),
+            onPressed: () {
+              RewardedVideoAd.instance.show();
+            },
+          ),
+          Text("You have $_coins coins."),
+        ].map((Widget button) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: button,
+          );
+        }).toList(),
+      ),
+    //),
     );
   }
-}*/
+}

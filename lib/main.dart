@@ -13,7 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 bool USE_FIRESTORE_EMULATOR = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseAdMob.instance.initialize(appId: AdMobService().getAdMobAppId());
+  FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
   await Firebase.initializeApp();
   runApp(
         MyApp()
