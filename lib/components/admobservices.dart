@@ -43,22 +43,8 @@ class admobServices extends StatefulWidget {
 }
 
 class _admobServicesState extends State<admobServices> {
-  BannerAd _bannerAd;
-  NativeAd _nativeAd;
   InterstitialAd _interstitialAd;
   int _coins = 0;
-
-  BannerAd createBannerAd() {
-    return BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
-    );
-  }
-
   static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     testDevices: testDevice != null ? <String>[testDevice] : null,
     keywords: <String>['foo', 'bar'],
@@ -67,37 +53,6 @@ class _admobServicesState extends State<admobServices> {
     nonPersonalizedAds: true,
   );
 
-  /*MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    keywords: <String>['flutterio', 'beautiful apps'],
-    contentUrl: 'https://flutter.io',
-    birthday: DateTime.now(),
-    childDirected: false,
-    designedForFamilies: false,
-    gender: MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
-    testDevices: <String>[], // Android emulators are considered test devices
-  );*/
-
-  BannerAd myBanner = BannerAd(
-    // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    // https://developers.google.com/admob/android/test-ads
-    // https://developers.google.com/admob/ios/test-ads
-    adUnitId: BannerAd.testAdUnitId,
-    size: AdSize.smartBanner,
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {
-      print("BannerAd event is $event");
-    },
-  );
-  NativeAd createNativeAd() {
-    return NativeAd(
-      adUnitId: NativeAd.testAdUnitId,
-      factoryId: 'adFactoryExample',
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("$NativeAd event $event");
-      },
-    );
-  }
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
       adUnitId: InterstitialAd.testAdUnitId,
@@ -108,9 +63,6 @@ class _admobServicesState extends State<admobServices> {
     );
   }
   InterstitialAd myInterstitial = InterstitialAd(
-    // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-    // https://developers.google.com/admob/android/test-ads
-    // https://developers.google.com/admob/ios/test-ads
     adUnitId: InterstitialAd.testAdUnitId,
     targetingInfo: targetingInfo,
     listener: (MobileAdEvent event) {
@@ -121,9 +73,8 @@ class _admobServicesState extends State<admobServices> {
   @override
   void initState() {
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-    _bannerAd = createBannerAd()..load();
-    RewardedVideoAd.instance.listener =
+
+    /*RewardedVideoAd.instance.listener =
         (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
       print("RewardedVideoAd event $event");
       if (event == RewardedVideoAdEvent.rewarded) {
@@ -131,13 +82,11 @@ class _admobServicesState extends State<admobServices> {
           _coins += rewardAmount;
         });
       }
-    };
+    };*/
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
-    _nativeAd?.dispose();
     _interstitialAd?.dispose();
     super.dispose();
   }
@@ -148,28 +97,6 @@ class _admobServicesState extends State<admobServices> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        RaisedButton(
-            child: const Text('SHOW BANNER'),
-            onPressed: () {
-              _bannerAd ??= createBannerAd();
-              _bannerAd
-                ..load()
-                ..show();
-            }),
-        RaisedButton(
-            child: const Text('SHOW BANNER WITH OFFSET'),
-            onPressed: () {
-              _bannerAd ??= createBannerAd();
-              _bannerAd
-                ..load()
-                ..show(horizontalCenterOffset: -50, anchorOffset: 100);
-            }),
-        RaisedButton(
-            child: const Text('REMOVE BANNER'),
-            onPressed: () {
-              _bannerAd?.dispose();
-              _bannerAd = null;
-            }),
         RaisedButton(
           child: const Text('LOAD INTERSTITIAL'),
           onPressed: () {
@@ -183,47 +110,7 @@ class _admobServicesState extends State<admobServices> {
             _interstitialAd?.show();
           },
         ),
-        RaisedButton(
-          child: const Text('SHOW NATIVE'),
-          onPressed: () {
-            _nativeAd ??= createNativeAd();
-            _nativeAd
-              ..load()
-              ..show(
-                anchorType: Platform.isAndroid
-                    ? AnchorType.bottom
-                    : AnchorType.top,
-              );
-          },
-        ),
-        RaisedButton(
-          child: const Text('REMOVE NATIVE'),
-          onPressed: () {
-            _nativeAd?.dispose();
-            _nativeAd = null;
-          },
-        ),
-        RaisedButton(
-          child: const Text('LOAD REWARDED VIDEO'),
-          onPressed: () {
-            RewardedVideoAd.instance.load(
-                adUnitId: RewardedVideoAd.testAdUnitId,
-                targetingInfo: targetingInfo);
-          },
-        ),
-        RaisedButton(
-          child: const Text('SHOW REWARDED VIDEO'),
-          onPressed: () {
-            RewardedVideoAd.instance.show();
-          },
-        ),
-        Text("You have $_coins coins."),
-      ].map((Widget button) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: button,
-        );
-      }).toList(),
+      ]
     );
   }
 }*/
