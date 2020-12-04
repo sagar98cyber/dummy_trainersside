@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-8035217795075290~7369554090</string>
+    <string>ca-app-pub-8035217795075290~5963907426</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
