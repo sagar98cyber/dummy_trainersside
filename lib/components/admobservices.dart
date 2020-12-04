@@ -24,34 +24,26 @@ class _admobServicesState extends State<admobServices> {
   NativeAd _nativeAd;
   InterstitialAd _interstitialAd;
   int _coins = 0;
+  final String IAd = 'ca-app-pub-8035217795075290/8129716399';
 
 
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId://InterstitialAd.testAdUnitId,
+      IAd,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("InterstitialAd event $event");
       },
     );
   }
-
-
-
   @override
   void initState() {
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-   // _bannerAd = createBannerAd()..load();
-  /*  RewardedVideoAd.instance.listener =
-        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-      print("RewardedVideoAd event $event");
-      if (event == RewardedVideoAdEvent.rewarded) {
-        setState(() {
-          _coins += rewardAmount;
-        });
-      }
-    };*/
+    FirebaseAdMob.instance.initialize(appId:
+    //FirebaseAdMob.testAppId
+    'ca-app-pub-8035217795075290~7369554090'
+    );
   }
 
   @override
