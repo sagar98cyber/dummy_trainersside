@@ -15,6 +15,10 @@ class Res {
   static const String main_top = "assets/images/main_top.png";
   static const String signup_top = "assets/images/signup_top.png";*/
   static String tname  ;
+  //https://github.com/sagar98cyber/dummy_trainersside/blob/testadmobdone/lib/components/admobservices.dart
+  static String adMobAppIdAndroid='ca-app-pub-8035217795075290~7369554090'  ;
+  static String admobAndroidInterAdunit ='ca-app-pub-8035217795075290/8129716399';
+  static String admobAndroidBannerAdunit ='ca-app-pub-8035217795075290/6551883175';
   static String tid;
   static String tNumber; //= "+919313632001";
   static int trainer_code = 786;

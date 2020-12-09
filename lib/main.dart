@@ -16,10 +16,7 @@ bool USE_FIRESTORE_EMULATOR = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-  FirebaseAdMob.instance.initialize(
-      appId:
-          //FirebaseAdMob.testAppId
-          'ca-app-pub-8035217795075290~7369554090');
+
   await Firebase.initializeApp();
   runApp(MyApp());
 }

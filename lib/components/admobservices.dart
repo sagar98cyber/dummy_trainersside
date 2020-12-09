@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:phone_authentication/res.dart';
 const String testDevice = 'YOUR_DEVICE_ID';
 class admobServices extends StatefulWidget {
   @override
@@ -11,7 +12,10 @@ class admobServices extends StatefulWidget {
 class _admobServicesState extends State<admobServices> {
   static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     testDevices: testDevice != null ? <String>[testDevice] : null,
-    //keywords: <String>['foo', 'bar'],
+    keywords: <String>[
+    //  'foo', 'bar'
+      'salon','grooming'
+    ],
     //contentUrl: 'http://foo.com/bar.html',
     childDirected: true,
     nonPersonalizedAds: true,
@@ -25,7 +29,8 @@ class _admobServicesState extends State<admobServices> {
 
   BannerAd createBannerAd() {
     return BannerAd(
-      adUnitId: 'ca-app-pub-8035217795075290/6551883175',
+      adUnitId:'$Res.admobAndroidBannerAdunit',
+      //'ca-app-pub-8035217795075290/6551883175',
       size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
@@ -37,7 +42,8 @@ class _admobServicesState extends State<admobServices> {
   InterstitialAd createInterstitialAd() {
     return InterstitialAd(
       adUnitId: //InterstitialAd.testAdUnitId,
-          IAd,
+          '$Res.admobAndroidInterAdunit',
+      //IAd,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("InterstitialAd event $event");
@@ -47,6 +53,10 @@ class _admobServicesState extends State<admobServices> {
 
   @override
   void initState() {
+    FirebaseAdMob.instance.initialize(
+        appId:
+        //FirebaseAdMob.testAppId
+        '${Res.adMobAppIdAndroid}');
     _bannerAd = createBannerAd()..load();
     super.initState();
   }
