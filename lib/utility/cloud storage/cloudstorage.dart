@@ -26,6 +26,7 @@ class _imageScreenState extends State<imageScreen> {
         fit: BoxFit.scaleDown,
       );
     });
+    return image;
   }
   @override
   Widget build(BuildContext context) {
@@ -47,11 +48,11 @@ class _imageScreenState extends State<imageScreen> {
                 if(snapshot.connectionState == ConnectionState.waiting){
                   return Container(
                     width: MediaQuery.of(context).size.width/1.2,
-                    height: MediaQuery.of(context).size.height/1.2,
+                    height: MediaQuery.of(context).size.height/3.2,
                     child: CircularProgressIndicator(),
                   );
                 }
-                return Text('something went wrong');
+               // return Text('something went wrong');
               },
             ),
           ),
