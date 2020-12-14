@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:phone_authentication/components/admobservices.dart';
+import 'package:phone_authentication/utility/cloud%20storage/cloudstorage.dart';
 import '../res.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -31,8 +32,13 @@ class trainerProfile extends StatelessWidget {
               Text('${Res.tname}'),
               Text('${Res.tid}'),
               Text('${Res.tNumber}'),
-             admobServices(),
-
+              admobServices(),
+              FlatButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => imageScreen()),
+                );
+                }, child: Text('image')),
             ],
           ),
         ),

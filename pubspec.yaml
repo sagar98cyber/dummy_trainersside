@@ -33,7 +33,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   fluttertoast: ^7.1.1
+  permission_handler: ^5.0.1+1
   firebase_admob: ^0.10.2
+  firebase_storage: "^5.2.0"
   connectivity: ^0.4.8+1
   firebase_auth: ^0.18.1+2
   firebase_core: ^0.5.0+1
@@ -107,3 +109,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+module:
+  androidX: true
