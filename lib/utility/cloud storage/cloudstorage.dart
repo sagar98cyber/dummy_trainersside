@@ -23,7 +23,7 @@ class _imageScreenState extends State<imageScreen> {
       print(value);
       image = Image.network(
         value.toString(),
-        fit: BoxFit.scaleDown,
+        fit: BoxFit.fitHeight,
       );
     });
     return image;
@@ -33,28 +33,67 @@ class _imageScreenState extends State<imageScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: Text('images'),),
-        body: Container(
-          child: Center(
-            child: FutureBuilder(
-              future: _getImage(context, "img1.jpg"),
-              builder: (context,snapshot){
-                if(snapshot.connectionState == ConnectionState.done){
-                  return Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height: MediaQuery.of(context).size.height/1.2,
-                    child: snapshot.data,
-                  );
-                }
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height: MediaQuery.of(context).size.height/3.2,
-                    child: CircularProgressIndicator(),
-                  );
-                }
-               // return Text('something went wrong');
-              },
-            ),
+        body: SingleChildScrollView(
+          child: Column(
+
+            children: [
+
+                 Container(
+                   color: Colors.black45,
+                   child: FutureBuilder(
+                    future: _getImage(context, 'img2.jpg'
+                    //    "try1/img3.jpg"
+                    ),
+                    builder: (context,snapshot){
+                      if(snapshot.connectionState == ConnectionState.done){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/2,
+                          height: MediaQuery.of(context).size.width/2,
+                          child: snapshot.data,
+                        );
+                      }
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/5,
+                          height: MediaQuery.of(context).size.height/5,
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      // return Text('something went wrong');
+                    },
+                ),
+                 ),
+
+
+               Container(
+                 width: MediaQuery.of(context).size.width/2,
+                 height: MediaQuery.of(context).size.width/2,
+                 color: Colors.black45,
+                 child: FutureBuilder(
+                    future: _getImage(context, 'img1.jpg'
+                    //    "try1/img4.jpg"
+                    ),
+                    builder: (context,snapshot){
+                      if(snapshot.connectionState == ConnectionState.done){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/5,
+                          height: MediaQuery.of(context).size.height/5,
+                          child: snapshot.data,
+                        );
+                      }
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/5,
+                          height: MediaQuery.of(context).size.height/5,
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      // return Text('something went wrong');
+                    },
+                  ),
+               ),
+
+            ]
           ),
         ),
       ),
