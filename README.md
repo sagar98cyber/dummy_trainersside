@@ -1,7 +1,7 @@
 
-sqflite 
-Firebase Auth
-Firebase Storage
-Cloud Firestore
-Agora
-Admob
+sqflite,
+Firebase Auth,
+Firebase Storage,
+Cloud Firestore,
+Agora,
+Admob,
